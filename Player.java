@@ -18,6 +18,7 @@ public class Player {
 	}
 
 	public void turn() {
+		wait(300);
 		Utils.print();
 		Utils.print(name+", du bist dran.");
 		Utils.input("Drücke <Enter>, um fortzufahren.");
@@ -30,6 +31,7 @@ public class Player {
 				this.fragileValue = 0; break;
 			};
 			Utils.print("In dieser Runde hast du bisher "+this.fragileValue+" gewürfelt.");
+			wait(333);
 			playerInput = Utils.input("Möchtest du noch einmal würfeln (yN)? ");
 		} while (playerInput.equals("y"));
 		Utils.print("Dein Zug ist zu Ende. Die "+this.fragileValue+" werden zu "+this.value+" addiert.");
@@ -38,7 +40,7 @@ public class Player {
 		Utils.print("Insgesamt hast du nun "+this.value+".");
 	}
 
-	private void safeSleep(int millis){
+	private void wait(int millis){
 			try {
 				Thread.sleep(millis);
 			} catch (InterruptedException e) {}
@@ -46,21 +48,21 @@ public class Player {
 
 	public void printWait(String str, int count, int wait) {
 		for (int i = 0; i < count+1; i++){
-			safeSleep(random.nextInt(100)+wait-50);
+			wait(random.nextInt(100)+wait-50);
 			System.out.print(str);
 			for (int j = 0; j < i; j++){
 				System.out.print(".");
 			}
 			System.out.print("\r");
 		}
-		safeSleep(random.nextInt(100)+wait-50);
+		wait(random.nextInt(100)+wait-50);
 	}
 
 	public boolean rollDice(){
 		printWait("Würfeln", 3, 500);
 		int diceResult = random.nextInt(6) + 1;
 		Utils.print("Du hast eine "+diceResult+" gewürfelt!");
-		safeSleep(444);
+		wait(999);
 		if (diceResult == 6) return true;
 		this.fragileValue += diceResult;
 		return false;
