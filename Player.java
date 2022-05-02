@@ -38,26 +38,29 @@ public class Player {
 		Utils.print("Insgesamt hast du nun "+this.value+".");
 	}
 
+	private void safeSleep(int millis){
+			try {
+				Thread.sleep(millis);
+			} catch (InterruptedException e) {}
+	}
+
 	public void printWait(String str, int count, int wait) {
 		for (int i = 0; i < count+1; i++){
-			try {
-				Thread.sleep(random.nextInt(100)+wait-50);
-			} catch (InterruptedException e) {}
+			safeSleep(random.nextInt(100)+wait-50);
 			System.out.print(str);
 			for (int j = 0; j < i; j++){
 				System.out.print(".");
 			}
 			System.out.print("\r");
 		}
-		try {
-			Thread.sleep(random.nextInt(100)+wait-50);
-		} catch (InterruptedException e) {}
+		safeSleep(random.nextInt(100)+wait-50);
 	}
 
 	public boolean rollDice(){
 		printWait("Würfeln", 3, 500);
 		int diceResult = random.nextInt(6) + 1;
 		Utils.print("Du hast eine "+diceResult+" gewürfelt!");
+		safeSleep(444);
 		if (diceResult == 6) return true;
 		this.fragileValue += diceResult;
 		return false;
